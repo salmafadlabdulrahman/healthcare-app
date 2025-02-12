@@ -1,21 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0d0f10;
+  color: #e8e9e9;
+  font-family: "Plus Jakarta Sans", serif;
+}
+
+@layer base {
+  /*:root {
+    --radius: 0.5rem;
+  }*/
+}
+
+@layer utilities {
+  .input-container-border-style {
+    @apply flex items-center rounded-lg focus-within:p-[2px] focus-within:bg-gradient-to-r focus-within:from-[#11998e] focus-within:to-[#6ef9a3]
+  }
+
+  .input-border-style {
+    @apply pl-[3em] w-full h-[47px] rounded-lg bg-dark-400 border border-dark-500 focus:border-none focus:ring-0 focus:outline-none;
+  }
 }
