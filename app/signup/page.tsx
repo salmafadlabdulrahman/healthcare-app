@@ -16,6 +16,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import LogoImg from "@/components/LogoImg";
 
 const formSchema = z.object({
   fullname: z.string().min(2, {
@@ -50,20 +51,12 @@ const SignUp = () => {
     <div className="flex items-start h-screen">
       <div className="w-[90%] m-auto pt-[3em] md:w-[80%] lg:w-[65%] xl:w-[50%] xl:p-[3em] h-screen ">
         {" "}
-        <div>
-          <Image
-            src="/assets/icons/logo-full.svg"
-            alt="logo"
-            width={150}
-            height={150}
-            unoptimized
-          />
-        </div>
+        <LogoImg />
         <h2 className="font-semibold text-[2.1em] mt-[1em]">Hi there, ...</h2>
         <p className="mt-[1em] text-dark-600 font-semibold">
           Get started with Appointements
         </p>
-        <div>
+        <div className="pt-[1em]">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
@@ -158,7 +151,7 @@ const SignUp = () => {
           alt="hero image"
           width={50}
           height={100}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-l-xl"
           unoptimized
         />
       </div>

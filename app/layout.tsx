@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import '@/lib/fontawesome';
+import "@/lib/fontawesome";
 
 export const metadata: Metadata = {
   title: "Healthcare",
-  description: "Take care of your health and book an appointement with our doctors.",
+  description:
+    "Take care of your health and book an appointement with our doctors.",
 };
 
 export default function RootLayout({
@@ -14,9 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`antialiased`}
-      >
+      <body className={`antialiased`}>
         {children}
       </body>
     </html>
