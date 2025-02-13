@@ -30,4 +30,8 @@ body {
   .input-border-style {
     @apply pl-[3em] w-full h-[47px] rounded-lg bg-dark-400 border border-dark-500 focus:border-none focus:ring-0 focus:outline-none;
   }
+
+  .radio-btn {
+    @apply bg-dark-400 w-[110px] rounded-md h-[45px];
+  }
 }
