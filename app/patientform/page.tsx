@@ -68,6 +68,10 @@ const formSchema = z.object({
   currentMedication: z.string().min(2),
   familyMedHistory: z.string().optional(),
   pastMedicalHistory: z.string().optional(),
+  identification: z.string({
+    required_error: "Please select an identification type.",
+  }),
+  idNumber: z.string().min(2),
 });
 
 const doctorsList: { name: string; imagePath: string }[] = [
@@ -99,6 +103,8 @@ const PatientForm = () => {
       currentMedication: "",
       familyMedHistory: "",
       pastMedicalHistory: "",
+      identification: "",
+      idNumber: "",
     },
   });
 
@@ -364,7 +370,7 @@ const PatientForm = () => {
                     <div className="mt-[2em]">
                       <FormField
                         control={form.control}
-                        name="email"
+                        name="doctor"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-dark-600">
@@ -456,7 +462,7 @@ const PatientForm = () => {
                           control={form.control}
                           name="allergies"
                           render={({ field }) => (
-                            <FormItem className="mb-[2em] w-[50%]">
+                            <FormItem className="mb-[2em] md:w-[50%]">
                               <FormLabel className="text-dark-600">
                                 Allergies (if any)
                               </FormLabel>
@@ -476,7 +482,7 @@ const PatientForm = () => {
                           control={form.control}
                           name="currentMedication"
                           render={({ field }) => (
-                            <FormItem className="mb-[2em] w-[50%]">
+                            <FormItem className="mb-[2em] md:w-[50%]">
                               <FormLabel className="text-dark-600">
                                 Current Medication
                               </FormLabel>
@@ -498,7 +504,7 @@ const PatientForm = () => {
                           control={form.control}
                           name="familyMedHistory"
                           render={({ field }) => (
-                            <FormItem className="mb-[2em] w-[50%]">
+                            <FormItem className="mb-[2em] md:w-[50%]">
                               <FormLabel className="text-dark-600">
                                 Family Medical History(if relevant)
                               </FormLabel>
@@ -518,7 +524,7 @@ const PatientForm = () => {
                           control={form.control}
                           name="pastMedicalHistory"
                           render={({ field }) => (
-                            <FormItem className="mb-[2em] w-[50%]">
+                            <FormItem className="mb-[2em] md:w-[50%]">
                               <FormLabel className="text-dark-600">
                                 Past Medical History
                               </FormLabel>
@@ -535,12 +541,95 @@ const PatientForm = () => {
                         />
                       </div>
                     </div>
-                  </div>
+                  </div>{" "}
+                  {/*Medical Information */}
+                  <div>
+                    <p className="font-semibold text-[1.6em]">
+                      Identification and Verification
+                    </p>{" "}
+                    {/*Identification and verification */}
+                    <div>
+                      <div className="mt-[2em]">
+                        <FormField
+                          control={form.control}
+                          name="identification"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-dark-600">
+                                Identification Type
+                              </FormLabel>
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={"Birth Certificate"}
+                              >
+                                <FormControl className="bg-dark-400 border border-dark-500 h-[50px]">
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Birth Certificate" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent className="bg-dark-400 border border-dark-500 text-white ">
+                                  <SelectItem
+                                    value="Birth Certificate"
+                                    className="rounded-md"
+                                  >
+                                    <p className="font-semibold">
+                                      Birth Certificate
+                                    </p>
+                                  </SelectItem>
+
+                                  <SelectItem
+                                    value="Driving Licence"
+                                    className="rounded-md"
+                                  >
+                                    <p className="font-semibold">
+                                      Driving Licence
+                                    </p>
+                                  </SelectItem>
+
+                                  <SelectItem
+                                    value="Passport or id"
+                                    className="rounded-md"
+                                  >
+                                    <p className="font-semibold">
+                                      Passport or id
+                                    </p>
+                                  </SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="mt-[2em]">
+                        <FormField
+                          control={form.control}
+                          name="idNumber"
+                          render={({ field }) => (
+                            <FormItem className="mb-[2em] md:w-[50%]">
+                              <FormLabel className="text-dark-600">
+                                Identification Number
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="ex:1234567"
+                                  {...field}
+                                  className="input-border-style"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </div>{" "}
+                  {/*Identification and verification */}
                   <Button
                     type="submit"
                     className="bg-green-500 w-full my-[3em] h-[40px]"
                   >
-                    Get Started
+                    Submit and continue
                   </Button>
                 </form>
               </Form>
