@@ -62,17 +62,23 @@ const formSchema = z.object({
   doctor: z.string({
     required_error: "Please select a doctor.",
   }),
+  insuranceProvider: z.string().min(2),
+  insurancePolicyNumber: z.string().min(2),
+  allergies: z.string().optional(),
+  currentMedication: z.string().min(2),
+  familyMedHistory: z.string().optional(),
+  pastMedicalHistory: z.string().optional(),
 });
 
-const doctorsList: {name:string, imagePath:string}[] = [
-  {name: "Dr. Maya Cameron" , imagePath:"dr-cameron.png"},
-  {name: "Dr. Alyana Cruz" , imagePath:"dr-cruz.png"},
-  {name: "Dr. Leonard Green" , imagePath:"dr-green.png"},
-  {name: "Dr. Jasmine Lee" , imagePath:"dr-lee.png"},
-  {name: "Dr. Livingston" , imagePath:"dr-livingston.png"},
-  {name: "Dr. Peter Prestone" , imagePath:"dr-peter.png"},
-  {name: "Dr. Alex Ramirez" , imagePath:"dr-remirez.png"},
-  {name: "Dr. Hardlik Sharma" , imagePath:"dr-sharma.png"},
+const doctorsList: { name: string; imagePath: string }[] = [
+  { name: "Dr. Maya Cameron", imagePath: "dr-cameron.png" },
+  { name: "Dr. Alyana Cruz", imagePath: "dr-cruz.png" },
+  { name: "Dr. Leonard Green", imagePath: "dr-green.png" },
+  { name: "Dr. Jasmine Lee", imagePath: "dr-lee.png" },
+  { name: "Dr. Livingston", imagePath: "dr-livingston.png" },
+  { name: "Dr. Peter Prestone", imagePath: "dr-peter.png" },
+  { name: "Dr. Alex Ramirez", imagePath: "dr-remirez.png" },
+  { name: "Dr. Hardlik Sharma", imagePath: "dr-sharma.png" },
 ];
 
 const PatientForm = () => {
@@ -87,6 +93,12 @@ const PatientForm = () => {
       occupation: "",
       EmergencyContact: "",
       doctor: "",
+      insuranceProvider: "",
+      insurancePolicyNumber: "",
+      allergies: "",
+      currentMedication: "",
+      familyMedHistory: "",
+      pastMedicalHistory: "",
     },
   });
 
@@ -345,12 +357,11 @@ const PatientForm = () => {
                   </div>{" "}
                   {/*Personal Information */}
                   <div>
-                    {" "}
-                    {/*Medical Information */}
+                    {/*Medical Information */}{" "}
                     <p className="font-semibold text-[1.6em]">
                       Medical Information
                     </p>
-                    <div className="mt-[2em]  ">
+                    <div className="mt-[2em]">
                       <FormField
                         control={form.control}
                         name="email"
@@ -396,6 +407,133 @@ const PatientForm = () => {
                           </FormItem>
                         )}
                       />
+                    </div>
+                    <div className="mt-[2em]">
+                      <div className="md:flex gap-2">
+                        <FormField
+                          control={form.control}
+                          name="insuranceProvider"
+                          render={({ field }) => (
+                            <FormItem className="mb-[2em] md:w-[50%]">
+                              <FormLabel className="text-dark-600">
+                                Insurance Provider
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="ex:BlueCross"
+                                  {...field}
+                                  className="input-border-style"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name="insurancePolicyNumber"
+                          render={({ field }) => (
+                            <FormItem className="mb-[2em] md:w-[50%]">
+                              <FormLabel className="text-dark-600">
+                                Insurance Policy Number
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="ex:ABC123456"
+                                  {...field}
+                                  className="input-border-style"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      <div className="md:flex gap-2">
+                        <FormField
+                          control={form.control}
+                          name="allergies"
+                          render={({ field }) => (
+                            <FormItem className="mb-[2em] w-[50%]">
+                              <FormLabel className="text-dark-600">
+                                Allergies (if any)
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="ex:Peanuts, Penicillin, Pollen"
+                                  {...field}
+                                  className="input-border-style"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name="currentMedication"
+                          render={({ field }) => (
+                            <FormItem className="mb-[2em] w-[50%]">
+                              <FormLabel className="text-dark-600">
+                                Current Medication
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="ex:Ibuprofen 200mg, Levothyroxine 50mcg"
+                                  {...field}
+                                  className="input-border-style"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      <div className="md:flex gap-2">
+                        <FormField
+                          control={form.control}
+                          name="familyMedHistory"
+                          render={({ field }) => (
+                            <FormItem className="mb-[2em] w-[50%]">
+                              <FormLabel className="text-dark-600">
+                                Family Medical History(if relevant)
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="ex:Mother had breast cancer"
+                                  {...field}
+                                  className="input-border-style"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name="pastMedicalHistory"
+                          render={({ field }) => (
+                            <FormItem className="mb-[2em] w-[50%]">
+                              <FormLabel className="text-dark-600">
+                                Past Medical History
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="ex:Asthma diagnosis in childhood"
+                                  {...field}
+                                  className="input-border-style"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
                     </div>
                   </div>
                   <Button
