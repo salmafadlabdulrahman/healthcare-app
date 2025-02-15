@@ -30,6 +30,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox"
 
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -43,6 +44,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+const consentConditions: { id: string; label: string }[] = [
+  {
+    id: "first-condition",
+    label: "I consent to receive treatment for my health condition.",
+  },
+  {
+    id: "second-condition",
+    label: "I consent to the use and disclosure of my health information for treatment purposes.",
+  },
+  {
+    id: "third-condition",
+    label: "I acknowledge that I have reviewed and agree to the privacy policy",
+  },
+] as const;
 
 const formSchema = z.object({
   fullname: z.string().min(2, {
@@ -72,6 +88,11 @@ const formSchema = z.object({
     required_error: "Please select an identification type.",
   }),
   idNumber: z.string().min(2),
+  consentConditions: z
+    .array(z.string())
+    .refine((value) => value.some((item) => item), {
+      message: "You have to select at least one item.",
+    }),
 });
 
 const doctorsList: { name: string; imagePath: string }[] = [
@@ -105,6 +126,7 @@ const PatientForm = () => {
       pastMedicalHistory: "",
       identification: "",
       idNumber: "",
+      consentConditions: ["first-condition", "third-condition"],
     },
   });
 
@@ -625,6 +647,63 @@ const PatientForm = () => {
                     </div>
                   </div>{" "}
                   {/*Identification and verification */}
+                  <div>
+                    {" "}
+                    {/*Consent and privacy */}
+                    <p className="font-semibold text-[1.6em]">
+                      Consent and Privacy
+                    </p>
+                    <div className="mt-[2em]">
+                      <FormField
+                        control={form.control}
+                        name="consentConditions"
+                        render={() => (
+                          <FormItem>
+                            {consentConditions.map((item) => (
+                              <FormField
+                                key={item.id}
+                                control={form.control}
+                                name="consentConditions"
+                                render={({ field }) => {
+                                  return (
+                                    <FormItem
+                                      key={item.id}
+                                      className="flex flex-row items-start space-x-3 space-y-0"
+                                    >
+                                      <FormControl>
+                                        <Checkbox
+                                          checked={field.value?.includes(
+                                            item.id
+                                          )}
+                                          onCheckedChange={(checked) => {
+                                            return checked
+                                              ? field.onChange([
+                                                  ...field.value,
+                                                  item.id,
+                                                ])
+                                              : field.onChange(
+                                                  field.value?.filter(
+                                                    (value) => value !== item.id
+                                                  )
+                                                );
+                                          }}
+                                          
+                                        />
+                                      </FormControl>
+                                      <FormLabel className="text-md text-dark-600 font-normal">
+                                        {item.label}
+                                      </FormLabel>
+                                    </FormItem>
+                                  );
+                                }}
+                              />
+                            ))}
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
                   <Button
                     type="submit"
                     className="bg-green-500 w-full my-[3em] h-[40px]"
